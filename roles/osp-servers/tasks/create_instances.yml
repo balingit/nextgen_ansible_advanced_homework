@@ -13,6 +13,9 @@
     meta: "group={{ __server.value.meta[0].group }},deployment_name={{ __server.value.meta[0].deployment_name }}"
     nics:
       - net-name: int_network
+    userdata: |
+      #!/bin/bash
+      echo '{{ osp_server_pubkey }}' >> /home/cloud-user/.ssh/authorized_keys
   loop: "{{ lookup('dict',osp_servers) }}"
   loop_control:
     loop_var: __server
