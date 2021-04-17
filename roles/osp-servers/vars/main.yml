@@ -38,4 +38,4 @@ osp_servers:
     meta:
       - { group: appdbs, deployment_name: QA}
 
-osp_server_pubkey: "{{ lookup('file','/root/.ssh/openstack.pub') }}"
+osp_server_pubkey: "{{ lookup('file','openstack.pub') }}"
