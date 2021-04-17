@@ -1,3 +1,6 @@
 ---
-- debug: var=item.value.meta[0].deployment_name
-  loop: "{{ lookup('dict',osp_servers)}}"
+# - debug: var=item.value.meta[0].deployment_name
+#  loop: "{{ lookup('dict',osp_servers)}}"
+
+- debug:
+   var: osp_server_pubkey
