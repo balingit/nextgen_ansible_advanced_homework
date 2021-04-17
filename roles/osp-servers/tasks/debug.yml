@@ -3,4 +3,9 @@
 #  loop: "{{ lookup('dict',osp_servers)}}"
 
 - debug:
-   var: osp_server_pubkey
+    var: ansible_user
+
+- command: ls -l /root/.ssh
+  register: out
+- debug:
+   var: out.stdout
