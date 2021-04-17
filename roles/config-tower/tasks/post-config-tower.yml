@@ -1,5 +1,10 @@
 - name: Create Homework Assignment project
-
+  tower_project:
+    name: "{{ proj_name }}"
+    state: present
+    scm_branch: "{{ scm_branch }}"
+    scm_type: git
+    scm_url: "{{ scm_url }}"
 
 - name: Machine Credentail to connect to workstation using openstack.pub
   tower_credential:
@@ -13,14 +18,26 @@
     ssh_key_data: "/root/.ssh/openstack.pem"
     username: cloud-user
 
+# - name: Create Inventory - rewrite
+#  command: |
+#    tower-cli inventory create -n "{{static_inventory_name}}" --organization "{{org_name}}"
+
+# Replace above with  module
 - name: Create Inventory
-  command: |
-    tower-cli inventory create -n "{{static_inventory_name}}" --organization "{{org_name}}"
+  tower_inventory:
+    name: "{{ static_inventory_name }}"
+    organization: "{{ org_name }}"
+    state: present
 
-- name: Create Group in static inventory 
-  command: |
-    tower-cli group create --inventory "{{static_inventory_name}}"  --name {{group_name}}
+# - name: Create Group in static inventory  - rewrite
+#  command: |
+#    tower-cli group create --inventory "{{static_inventory_name}}"  --name {{group_name}}
 
+- name: Create Group in static inventory
+  tower_group:
+    inventory: "{{ static_inventory_name }}"
+    name: "{{ group_name }}"
+    state: present
 
 - name: Add tower host
   tower_host:
@@ -36,7 +53,6 @@
 - name: Associate workstation host to group 
   command: | 
     tower-cli host associate --host "{{host_name}}" --group "{{group_name}}"
-
 
 - name: Tower Creds key file
   tower_credential:

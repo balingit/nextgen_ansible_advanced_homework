@@ -1,0 +1,31 @@
+---
+- name: Create server instances
+  os_server:
+    cloud: openstack
+    name:  "{{ __server.value.name }}"
+    state: "{{ __server.value.state }}"
+    image: "{{ __server.value.image }}"
+    flavor: "{{ __server.value.flavor }}"
+    key_name: "{{ __server.value.key_name }}"
+    wait: yes
+    security_groups: "{{ __server.value.security_group }}"
+    delete_fip: true
+    meta: "group={{ __server.value.meta[0].group }},deployment_name={{ __server.value.meta[0].deployment_name }}"
+    nics:
+      - net-name: int_network
+  loop: "{{ lookup('dict',osp_servers) }}"
+  loop_control:
+    loop_var: __server
+
+- name: Add floating IP to instances
+  os_floating_ip:
+    cloud: openstack
+    state: present
+    reuse: yes
+    server: "{{ __instance.value.name }}"
+    network: ext_network
+    wait: true
+    timeout: 200
+  loop: "{{ lookup('dict',osp_servers) }}"
+  loop_control:
+    loop_var: __instance
