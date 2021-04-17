@@ -2,5 +2,5 @@
 
 # tasks file for osp.servers
 
-- import_tasks: debug.yml
-# - import_tasks: create_instances.yml
+# - import_tasks: debug.yml
+- import_tasks: create_instances.yml
