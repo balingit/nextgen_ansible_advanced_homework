@@ -1,0 +1,10 @@
+---
+- name: install postgresql10
+  yum:
+    name: postgresql10 
+    state: present
+
+- name: start postgresql
+  service:
+    state: started
+    enabled: true

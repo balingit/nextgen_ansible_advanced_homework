@@ -1,2 +1,11 @@
 ---
+- name: Install {{ payload }}
+  yum:
+    name: "{{ payload }}"
+    state: present
+  notify: start "{{ payload }}"
 
+- name: install index
+  template:
+    name: index.html.j2
+    dest: "{{ tomcat_web_root }}/index.html"
