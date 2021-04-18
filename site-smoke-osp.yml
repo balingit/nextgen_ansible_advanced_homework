@@ -7,6 +7,9 @@
       server: front*
     register: frontend_list
 
+  - debug:
+    var: "htp://{{ frontend_list.openstack_servers.public_v4 }}"
+
   - name: Curl website
     uri:
       url: "htp://{{ frontend_list.openstack_servers.public_v4 }}"
