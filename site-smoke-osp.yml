@@ -9,7 +9,7 @@
 
   - name: Curl website
     debug:
-      var: frontent_list
+      var: frontend_list
 
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
