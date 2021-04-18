@@ -3,7 +3,7 @@
   yum:
     name: "{{ payload }}"
     state: present
-  notify: start "{{ payload }}"
+  notify: start {{ payload }}
 
 - name: install index
   template:
