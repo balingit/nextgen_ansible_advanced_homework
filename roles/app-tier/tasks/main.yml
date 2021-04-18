@@ -7,5 +7,5 @@
 
 - name: install index
   template:
-    name: index.html.j2
+    src: index.html.j2
     dest: "{{ tomcat_web_root }}/index.html"
