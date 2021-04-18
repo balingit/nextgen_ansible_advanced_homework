@@ -8,8 +8,13 @@
     register: frontend_list
 
   - name: Curl website
-    debug:
-      var: frontend_list
+    uri:
+      url: "htp://{{ frontend_list.openstack_servers.public_v4 }}"
+      return_content: yes
+    register: webpage
+
+  - debug:
+      var: webpage
 
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
