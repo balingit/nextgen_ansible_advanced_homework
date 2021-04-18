@@ -5,6 +5,11 @@
     state: present
   notify: start {{ payload }}
 
+- name: create web root dir
+  file:
+    path: "{{ tomcat_web_root }}"
+    state: directory
+
 - name: install index
   template:
     src: index.html.j2
