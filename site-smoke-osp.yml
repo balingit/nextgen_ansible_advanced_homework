@@ -12,8 +12,11 @@
 
   - name: Curl website
     uri:
-      url: "htp://{{ frontend_list.openstack_servers.public_v4 }}"
+      url: "htp://{{ __frontend.public_v4 }}"
       return_content: yes
+    loop: "{{ frontend_list.openstack_servers }}"
+    loop_control:
+      loop_var: __frontend
     register: webpage
 
   - debug:
