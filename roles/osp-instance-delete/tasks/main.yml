@@ -4,6 +4,14 @@
     os_server_info:
       cloud: openstack
     register: server_info
-  - name: Delete instances
-    debug:
+
+  - debug:
       var: server_info
+
+  - name: Delete instances
+    os_server:
+      name: {{ __server.name }}
+      state: absent
+    loop: "{{ server_info.openstack_servers }}"
+    loop_control:
+      loop_var: __server
