@@ -10,6 +10,7 @@
 
   - name: Delete instances
     os_server:
+      cloud: openstack
       name: "{{ __server.id }}"
       state: absent
     loop: "{{ server_info.openstack_servers }}"
