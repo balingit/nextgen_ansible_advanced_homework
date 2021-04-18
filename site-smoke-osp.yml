@@ -2,7 +2,14 @@
   gather_facts: false
   tasks:
   - name: OpenStack servers
+    os_server_info:
+      cloud: openstack
+      server: front*
+    register: frontend_list
+
   - name: Curl website
+    debug:
+      var: frontent_list
 
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
