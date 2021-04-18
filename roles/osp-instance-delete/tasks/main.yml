@@ -10,7 +10,7 @@
 
   - name: Delete instances
     os_server:
-      name: {{ __server.name }}
+      name: "{{ __server.name }}"
       state: absent
     loop: "{{ server_info.openstack_servers }}"
     loop_control:
