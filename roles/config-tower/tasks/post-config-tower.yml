@@ -67,6 +67,20 @@
     ssh_key_data: /root/.ssh/mykey.pem
     username: "{{ opentlc_login }}"
 
+- name: Prompt for bastion password
+  tower_credential:
+    name: "{{ bastion_cred }}"
+    organization: Default
+    state: present
+    kind: ssh
+    tower_host: tower1.{{tower_GUID}}.example.opentlc.com
+    tower_username: admin
+    tower_password: r3dh4t1!
+    tower_verify_ssl: no
+    ssh_key_data: /root/.ssh/mykey.pem
+    username: "{{ opentlc_login }}"
+    password: ASK
+
 - name: Remove secret
   file:
     name: /root/secret.pem
